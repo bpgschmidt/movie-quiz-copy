@@ -3,21 +3,19 @@
 This is a movie quiz with data taken from an imdb api from RapidAPI. 
 The idea is to let the player shuffle ten movies from the API, and for each movie name and poster guess the year that it was made among 4 alternatives. The other three alternatives are brought forward using a self made random number generator. If there is time, we would like to implement the ability for more play-styles, such as guessing top actors, director, and movie title. 
 
-# What you have done
+# Product
 ## Front end
 The UI is done using Tailwind for straightforward CSS usage with directly adaptable class names in the divs. We have finished a frontPage view with a dropdown navbar for about-view, scoreboard-view and hyperlink to imdb. We have an about-view finished that describes the app and a quizView which is nearly finished. We have started a scoreboard view which is dependent on the score from the model. 
 ## Back end
 We have a model, an app file, presenters for our views and an index. The routing and passing of props is not fully realized as we are seeing trouble with react. 
-# What you still plan to do
-Our main issue is to fix the passing of props between model-view-presenter. After that we need to create the scoreboard view that updates with the player’s score after each quiz. The third step is to perfect the css of the quiz-view to make it look clean. The fourth step is to write the persistence to firebase and user authentication in conjunction. When this works we can decide whether we want to extend the app’s functionality. 
 # Your project file structure (short description/purpose of each file)
 ## apiSource
 This one is equivalent to dishSource in the labs and is used to fetch data from the api.
 
-##apiConfig
+## apiConfig
 This one stores our host URL and API key
 
-##resolvePromise
+## resolvePromise
 Returns a promise chain
 ## frontPageView/presenter
 The React file "frontPageView.jsx" was done using Tailwind as a CSS tool. 
