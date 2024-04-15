@@ -8,7 +8,7 @@ The idea is to let the player shuffle ten movies from the API, and for each movi
 The UI is done using Tailwind for straightforward CSS usage with directly adaptable class names in the divs. We have finished a frontPage view with a dropdown navbar for about-view, scoreboard-view and hyperlink to imdb. We have an about-view finished that describes the app and a quizView which is nearly finished. We have started a scoreboard view which is dependent on the score from the model. 
 ## Back end
 We have a model, an app file, presenters for our views and an index. The routing and passing of props is not fully realized as we are seeing trouble with react. 
-# Your project file structure (short description/purpose of each file)
+# Project file structure (short description/purpose of each file)
 ## apiSource
 This one is equivalent to dishSource in the labs and is used to fetch data from the api.
 
