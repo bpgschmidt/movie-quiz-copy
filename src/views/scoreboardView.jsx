@@ -1,52 +1,55 @@
-// props.users = [{name : Mange Schmidt, points: [10, 7, 4, 6,]}, {...}]
-
 function ScoreboardView(props) {
-    function scoreTableRowCB(user) {
-        // Calculate highest and average points
-        const highestPoint = Math.max(...user.points);
-        const averagePoint = user.points.reduce((acc, point) => acc + point, 0) / user.points.length;
-  
+
+    function scoreTableRow(user) {
+        if (!user.name) return null;
+        // Calculate average points
+        const averagePoint = user.completedQuizes > 0
+            ? (user.points / user.completedQuizes).toFixed(2)
+            : 0;
+        console.log(user.points, user.completedQuizes, user.name);
+    
         return (
-        <tr key={user.name} className="border-t border-black">
-            <th>{user.name}</th>
-            <td>{highestPoint}/10 points</td>
-            <td>{averagePoint.toFixed(2)}/10 points</td>
-        </tr>
+            <tr key={user.name.toString()} className="border-t border-white text-white font-semibold">
+                <td>{user?.name}</td>
+                <td className="text-right">{user.points} points</td>
+                <td className="text-right">{averagePoint} points</td>
+            </tr>
         );
     }
+
   
-    // Sort users by highest points in descending order
-    const sortedUsers = [...props.users].sort((a, b) => Math.max(...b.points) - Math.max(...a.points));
+    // Sort users by total points in descending order
+    const sortedUsers = props.users.sort((a, b) => b.points - a.points);
   
     return (
-        <div className="w-screen bg-yellow-200 h-screen">
-            <div className="mt-5 ml-20 mr-20 mb-5">
-            <h1 className="mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white text-center">
-                Scoreboard
-            </h1>
-            <table className="table">                
-                <thead>
-                <tr className="border-b border-black">
-                    <th>User</th>
-                    <th>Highscore</th>
-                    <th>Average</th>
-                </tr>
-                </thead>
-                <tbody>{sortedUsers.map(scoreTableRowCB)}</tbody>
-            </table>
-            </div>
+        <div className="overflow-hidden bg-gradient-to-b bg-gradient-to-b from-blue-950 to-indigo-700 to-80% h-screen">
+  <div className="mt-5 mx-2 md:mx-10 lg:mx-20 mb-5 glass p-6 md:p-12">
+    <h1 className="mb-4 text-2xl md:text-4xl lg:text-5xl font-extrabold leading-none tracking-tight text-white text-center">
+      Scoreboard
+    </h1>
+    <div className="overflow-x-auto">
+      <table className="w-full text-white">
+        <thead>
+          <tr className="border-b border-white text-xl md:text-2xl">
+            <th className="text-left font-bold">User</th>
+            <th className="text-right font-bold">Total Points</th>
+            <th className="text-right font-bold">Average Score</th>
+          </tr>
+        </thead>
+        <tbody>{sortedUsers.map(scoreTableRow)}</tbody>
+      </table>
+    </div>
+  </div>
 
-            <div className="text-center">
-                <button 
-                className="btn"
-                onClick={() => window.location.hash="#/"}>
-                    Back to front page
-                </button>
-            </div>
-        </div>
+  <div className="text-center fixed bottom-0 left-0 w-full p-8">
+    <button
+      className="bg-white text-black font-bold py-2 px-4 rounded hover:bg-red-700 hover:text-white mt-2"
+      onClick={() => window.location.hash = "#/"}>
+      Back to front page
+    </button>
+  </div>
+</div>
+    );
+}
 
-        );
-  }
-  
-  export default ScoreboardView;
-  
+export default ScoreboardView;

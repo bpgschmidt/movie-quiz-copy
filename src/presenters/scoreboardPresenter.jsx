@@ -1,20 +1,30 @@
+import React, { useEffect } from 'react';
 import ScoreboardView from "../views/scoreboardView";
+import { observer } from "mobx-react";
 
+const ScoreboardPresenter = ({ store }) => {
+    useEffect(() => {
+        // Set up the real-time listener
+        const unsubscribe = store.fetchAllUsersDataRealtime();
 
-export default
-function ScoreboardPresenter(props){
+        // Clean up the listener when the component unmounts
+        return () => {
+            if (unsubscribe) {
+                unsubscribe();
+            }
+        };
+    }, [store]); // Dependency array ensures this only runs once
 
-    const dummyUsers = [
-        {name : "Mange Schmidt", points: [10, 7, 4, 6,]}, 
-        {name: "Marilicous", points: [8, 6, 4, 10, 6]}, 
-        {name: "Jalle Dalle", points: [1, 2, 3, 4]},
-        {name: "Goop man", points: [2, 3, 4, 5, 6]}
-    ]
-    
+    // Use the data from the store to display in the view
     return (
-    <ScoreboardView 
-        users = {dummyUsers}
-        
-    />
-    )
-}
+        <ScoreboardView 
+            users={store.allUsersData.map(user => ({
+                name: user.username,
+                points: user.savedPoints,
+                completedQuizes: user.completedQuizes
+            }))}
+        />
+    );
+};
+
+export default observer(ScoreboardPresenter);

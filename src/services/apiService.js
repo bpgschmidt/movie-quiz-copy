@@ -1,8 +1,5 @@
-import {HOST_URL, API_KEY } from "./apiConfig.js";
+import {HOST_URL, API_KEY } from "../config/api.js";
 
-function throwError(message) {
-    throw new Error(message);
-}
 
 // Common function to fetch data from the API
 async function fetchData(url) {
@@ -26,20 +23,25 @@ async function fetchData(url) {
 async function getMovieDetails(id) {
     const url = `https://imdb8.p.rapidapi.com/title/get-details?tconst=${id}`;
     console.log("GET");
-    return fetchData(url);
+    return await fetchData(url);
 }
 
-async function getTopHundred() {
+async function getMostPopular() {
     const url = 'https://imdb8.p.rapidapi.com/title/get-most-popular-movies?homeCountry=US&purchaseCountry=US&currentCountry=US';
-    return fetchData(url);
+    return await fetchData(url);
+}
 
+async function getToprated() {
+    const url = 'https://imdb8.p.rapidapi.com/title/get-top-rated-movies';
+    return fetchData(url);
 }
 
 // Export the functions
 export {
     getMovieDetails,
     fetchData,
-    getTopHundred
+    getMostPopular,
+    getToprated
 };
 
 

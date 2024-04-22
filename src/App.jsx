@@ -1,18 +1,19 @@
 import React from 'react';
-import FrontPageView from "./views/frontPageView";
+import { observer } from 'mobx-react';
+import { createHashRouter, RouterProvider } from "react-router-dom";
+import FrontPagePresenter from './presenters/frontPagePresenter';
 import AboutView from "./views/aboutView";
 import ScoreboardPresenter from "./presenters/scoreboardPresenter";
 import QuizPresenter from "./presenters/quizPresenter";
-import { createHashRouter, RouterProvider } from "react-router-dom";
-import { Auth } from "./views/authView";
-import store from './MovieQuizStore'; 
-import FrontPagePresenter from './presenters/frontPagePresenter';
+import FinishedPresenter from './presenters/finishedPresenter';
+import QuitPresenter from './presenters/quitPresenter';
+import store from './MovieQuizStore';
 
-function makeRouter() {
+function makeRouter(store) {
   return createHashRouter([
     {
       path: '/',
-      element: <FrontPagePresenter />,
+      element: <FrontPagePresenter store={store} />,
     },
     {
       path: '/about',
@@ -20,21 +21,25 @@ function makeRouter() {
     },
     {
       path: '/scoreboard',
-      element: <ScoreboardPresenter />,
+      element: <ScoreboardPresenter store={store} />,
     },
     {
       path: '/quiz',
-      element: <QuizPresenter />
+      element: <QuizPresenter store={store} />,
     },
     {
-      path: '/auth',
-      element: <Auth />
+      path: '/finished',
+      element: <FinishedPresenter store={store} />,
+    },
+    {
+      path: '/quit',
+      element: <QuitPresenter store={store}/>
     }
   ]);
 }
 
 function App() {
-  const router = makeRouter();
+  const router = makeRouter(store);
 
   return (
     <main className="flex flex-col">
@@ -43,4 +48,4 @@ function App() {
   );
 }
 
-export default App;
+export default observer(App);

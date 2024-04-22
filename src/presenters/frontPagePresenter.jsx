@@ -1,20 +1,19 @@
-import store from "../MovieQuizStore";
+import React from "react";
 import { observer } from "mobx-react";
 import FrontPageView from "../views/frontPageView";
-import React from "react";
 
-const FrontPagePresenter = observer(() => {
+const FrontPagePresenter = ({ store }) => {
     if (store.loading) {
-        return <div className='flex flex-col items-center justify-center relative w-screen min-h'>
+        return <div className='overflow-hidden bg-gradient-to-b bg-gradient-to-b bg-gradient-to-b from-blue-950 to-indigo-700 to-80% h-screen flex flex-col items-center justify-center relative w-screen min-h'>
                     <div className="loading loading-spinner loading-lg w-48 h-48 mt-48">Loading front page...</div>
                 </div>;
     }
 
-    const onLogOut= async () => {
+    const onLogOut = async () => {
         await store.signOut();
     };
 
-    const onLogIn= async () => {
+    const onLogIn = async () => {
         await store.signInWithGoogle();
     };
 
@@ -23,7 +22,7 @@ const FrontPagePresenter = observer(() => {
     }
 
     const update = async () =>{
-        await store.updateCurrentQuiz();
+        await store.updateCurrentQuiz("topRated");
     }
 
     return (
@@ -32,8 +31,9 @@ const FrontPagePresenter = observer(() => {
             onLogOut={onLogOut}
             setLoading={setLoading}
             update={update}
+            currentUser={store.currentUser}
         />
     );
-});
+};
 
-export default FrontPagePresenter;
+export default observer(FrontPagePresenter);
